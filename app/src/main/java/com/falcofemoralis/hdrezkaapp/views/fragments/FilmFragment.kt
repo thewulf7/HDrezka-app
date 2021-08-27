@@ -638,7 +638,7 @@ class FilmFragment : Fragment(), FilmView {
             }
         } else {
             if (SettingsData.deviceType != DeviceType.TV) {
-                currentView.findViewById<LinearLayout>(R.id.fragment_film_ll_title_layout).layoutParams = LinearLayout.LayoutParams(0, WindowManager.LayoutParams.WRAP_CONTENT, 0.85f)
+               // currentView.findViewById<LinearLayout>(R.id.fragment_film_ll_title_layout).layoutParams = LinearLayout.LayoutParams(0, WindowManager.LayoutParams.WRAP_CONTENT, 0.85f)
             }
             btn.visibility = View.GONE
         }

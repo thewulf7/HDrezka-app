@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="head_text">@dimen/_18ssp</dimen>
-    <dimen name="normal_text">@dimen/_12ssp</dimen>
-    <dimen name="small_text">@dimen/_10ssp</dimen>
+    <dimen name="head_text">@dimen/_14ssp</dimen>
+    <dimen name="normal_text">@dimen/_8ssp</dimen>
+    <dimen name="small_text">@dimen/_6ssp</dimen>
     <dimen name="spinner_text">@dimen/_10ssp</dimen>
     <dimen name="pref_padding">56dp</dimen>
     <dimen name="root_pref_space">10dp</dimen>
@@ -10,7 +10,7 @@
     <dimen name="dimens_17dp">17dp</dimen>
     <dimen name="dimens_22dp">22dp</dimen>
     <dimen name="dimens_30dp">30dp</dimen>
-    <dimen name="search_margin_top">0dp</dimen>
-    <dimen name="search_margin_top_clear">0dp</dimen>
+    <dimen name="search_margin_top">15dp</dimen>
+    <dimen name="search_margin_top_clear">7dp</dimen>
     <dimen name="tv_navigation_width">50dp</dimen>
 </resources>

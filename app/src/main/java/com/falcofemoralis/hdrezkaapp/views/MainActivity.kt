@@ -1,9 +1,7 @@
 package com.falcofemoralis.hdrezkaapp.views
 
 import android.annotation.SuppressLint
-import android.app.UiModeManager
 import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -67,37 +65,27 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, IConnec
                 if (SettingsData.provider == "" || SettingsData.provider == null) {
                     showProviderEnter()
                 } else {
-                    interfaceMode = (getSystemService(UI_MODE_SERVICE) as UiModeManager).currentModeType
-                    when (interfaceMode) {
-                        Configuration.UI_MODE_TYPE_TELEVISION -> {
-                            SettingsData.init(applicationContext, DeviceType.TV)
-                            UserData.init(applicationContext)
-                            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                    SettingsData.init(applicationContext, DeviceType.TV)
+                    UserData.init(applicationContext)
+                    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
-                            navFragmentLayout = findViewById(R.id.nav_fragment)
+                    navFragmentLayout = findViewById(R.id.nav_fragment)
 
-                            navMenuFragment = NavigationMenu()
-                            supportFragmentManager.beginTransaction().replace(R.id.nav_fragment, navMenuFragment).commit()
+                    navMenuFragment = NavigationMenu()
+                    supportFragmentManager.beginTransaction().replace(R.id.nav_fragment, navMenuFragment).commit()
 
-                            mainFragment = NewestFilmsFragment()
-                            onFragmentInteraction(null, mainFragment, Action.NEXT_FRAGMENT_REPLACE, false, null, null, null)
-                        }
-                        else -> {
-                            SettingsData.init(applicationContext, DeviceType.MOBILE)
-                            UserData.init(applicationContext)
-
-                            requestedOrientation = if (SettingsData.isAutorotate == true) {
-                                ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
-                            } else {
-                                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-                            }
-                            mainFragment = ViewPagerFragment()
-                            onFragmentInteraction(null, mainFragment, Action.NEXT_FRAGMENT_REPLACE, false, null, null, null)
-
-                            createUserMenu()
-                            setUserAvatar()
+                    SettingsData.mainScreen?.let {
+                        mainFragment = when (it) {
+                            0 -> NewestFilmsFragment()
+                            1 -> CategoriesFragment()
+                            2 -> SearchFragment()
+                            3 -> BookmarksFragment()
+                            4 -> WatchLaterFragment()
+                            else -> NewestFilmsFragment()
                         }
                     }
+
+                    onFragmentInteraction(null, mainFragment, Action.NEXT_FRAGMENT_REPLACE, false, null, null, null)
                 }
             }
         } else {
@@ -107,9 +95,9 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, IConnec
 
     private fun createUserMenu() {
         if (SettingsData.deviceType != DeviceType.TV) {
-            findViewById<ImageView>(R.id.activity_main_iv_user).setOnClickListener {
+            /*findViewById<ImageView>(R.id.activity_main_iv_user).setOnClickListener {
                 openUserMenu()
-            }
+            }*/
         }
     }
 
@@ -124,12 +112,12 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, IConnec
 
     fun setUserAvatar() {
         if (SettingsData.deviceType != DeviceType.TV) {
-            val imageView: ImageView = findViewById(R.id.activity_main_iv_user)
+            /*val imageView: ImageView = findViewById(R.id.activity_main_iv_user)
             if (UserData.avatarLink != null && UserData.avatarLink!!.isNotEmpty()) {
                 Picasso.get().load(UserData.avatarLink).into(imageView)
             } else {
                 imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.no_avatar))
-            }
+            }*/
         }
     }
 
@@ -272,10 +260,10 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, IConnec
                 this.doubleBackToExitPressedOnce = true
                 Toast.makeText(this, getString(R.string.double_click_hint), Toast.LENGTH_SHORT).show()
                 Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
-            } else{
+            } else {
                 super.onBackPressed()
             }
-        } else{
+        } else {
             super.onBackPressed()
         }
     }
